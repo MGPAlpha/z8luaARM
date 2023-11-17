@@ -348,7 +348,7 @@ LUA_API lua_Number lua_tonumberx (lua_State *L, int idx, int *isnum) {
   }
   else {
     if (isnum) *isnum = 0;
-    return 0;
+    return static_cast<int32_t>(0);
   }
 }
 

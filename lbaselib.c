@@ -66,12 +66,12 @@ static int luaB_tonumber (lua_State *L) {
     if (*s == '-') { s++; neg = 1; }  /* handle signal */
     else if (*s == '+') s++;
     if (isalnum((unsigned char)*s)) {
-      lua_Number n = 0;
+      lua_Number n = static_cast<int32_t>(0);
       do {
         int digit = (isdigit((unsigned char)*s)) ? *s - '0'
                        : toupper((unsigned char)*s) - 'A' + 10;
         if (digit >= base) break;  /* invalid numeral; force a fail */
-        n = n * (lua_Number)base + (lua_Number)digit;
+        n = n * (lua_Number)static_cast<int32_t>(base) + (lua_Number)static_cast<int32_t>(digit);
         s++;
       } while (isalnum((unsigned char)*s));
       s += strspn(s, SPACECHARS);  /* skip trailing spaces */
@@ -170,7 +170,7 @@ static int luaB_collectgarbage (lua_State *L) {
   switch (o) {
     case LUA_GCCOUNT: {
       int b = lua_gc(L, LUA_GCCOUNTB, 0);
-      lua_pushnumber(L, res + ((lua_Number)b/1024));
+      lua_pushnumber(L, res + ((lua_Number)static_cast<int32_t>(b)/1024));
       lua_pushinteger(L, b);
       return 2;
     }

@@ -4,7 +4,7 @@
 
 # == CHANGE THE SETTINGS BELOW TO SUIT YOUR ENVIRONMENT =======================
 
-CWARNS= -pedantic -Wcast-align -Wpointer-arith -Wshadow \
+CWARNS= -pedantic -Wpointer-arith -Wshadow \
         -Wsign-compare -Wundef -Wwrite-strings
 # -Wcast-qual
 
@@ -16,10 +16,10 @@ TESTS= -g -DLUA_USER_H='"ltests.h"'
 LOCAL = $(CWARNS)
 
 
-CC= g++
+CC= $(DEVKITARM)/bin/arm-none-eabi-g++
 CFLAGS= -Wall $(MYCFLAGS) -O2
-AR= ar rcu
-RANLIB= ranlib
+AR= $(DEVKITARM)/bin/arm-none-eabi-ar rcu
+RANLIB= $(DEVKITARM)/bin/arm-none-eabi-ranlib
 RM= rm -f
 
 MYCFLAGS= $(LOCAL)
