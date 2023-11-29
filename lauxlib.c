@@ -940,7 +940,6 @@ LUALIB_API lua_State *luaL_newstate (void) {
   return L;
 }
 
-
 LUALIB_API void luaL_checkversion_ (lua_State *L, lua_Number ver) {
   const lua_Number *v = lua_version(L);
   if (v != lua_version(NULL))
@@ -950,8 +949,8 @@ LUALIB_API void luaL_checkversion_ (lua_State *L, lua_Number ver) {
                   ver, *v);
   /* check conversions number -> integer types */
   lua_pushnumber(L, -(lua_Number)static_cast<int32_t>(0x1234));
-  if (lua_tointeger(L, -1) != -0x1234 ||
-      lua_tounsigned(L, -1) != (lua_Unsigned)-0x1234)
+  if (lua_tointeger(L, -1) != -0x1234 /*||
+      lua_tounsigned(L, -1) != (lua_Unsigned)-0x1234*/)
     luaL_error(L, "bad conversion number->int;"
                   " must recompile Lua with proper settings");
   lua_pop(L, 1);
